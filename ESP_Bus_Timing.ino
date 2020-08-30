@@ -8,6 +8,9 @@
 
 #include <ArduinoJson.h>
 
+#include <Ticker.h>
+
+
 #ifndef CHARBUFF
 #include "char_buff.h"
 #endif
@@ -34,6 +37,17 @@ ESP8266WiFiMulti WiFiMulti;
 int timezone = 8;
 int dst = 0;
 
+Ticker blinker;
+ 
+#define LED 13
+ 
+//=======================================================================
+void changeState()
+{
+  digitalWrite(LED, !(digitalRead(LED)));  //Invert Current State of LED  
+}
+//=======================================================================
+
 
 
 void setup() {
@@ -54,8 +68,11 @@ void setup() {
   WiFi.mode(WIFI_STA);
   WiFiMulti.addAP(ssid, password);
   
-  pinMode(13, OUTPUT);
-  digitalWrite(13, LOW);
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, LOW);
+
+  //Initialize Ticker every 0.5s
+  blinker.attach_ms(2, changeState); //Use <strong>attach_ms</strong> if you need time in ms
 
   // Empty the buffer
   char_buff_empty();
@@ -78,8 +95,10 @@ void loop() {
     }
 
     time1 = millis();
+    blinker.detach(); 
     GetBusData();
     time2 = millis();
+    blinker.attach_ms(2, changeState); //Use <strong>attach_ms</strong> if you need time in ms
   }
 
   Serial.println(time1 - last_time);
