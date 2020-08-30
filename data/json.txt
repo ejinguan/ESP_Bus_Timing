@@ -1,0 +1,84 @@
+// From:  https://www.instructables.com/id/ESP8266-Parsing-JSON/
+// https://arduinojson.org/v6/assistant/
+
+const size_t bufferSize = JSON_ARRAY_SIZE(2) + JSON_OBJECT_SIZE(3) + 2*JSON_OBJECT_SIZE(5) + 6*JSON_OBJECT_SIZE(9) + 1360;
+DynamicJsonDocument doc(bufferSize);
+	  
+deserializeJson(doc, http.getString());
+
+const char* odata_metadata = doc["odata.metadata"]; // "http://datamall2.mytransport.sg/ltaodataservice/$metadata#BusArrivalv2/@Element"
+const char* BusStopCode = doc["BusStopCode"]; // "59281"
+
+JsonObject Services_0 = doc["Services"][0];
+const char* Services_0_ServiceNo = Services_0["ServiceNo"]; // "805"
+const char* Services_0_Operator = Services_0["Operator"]; // "SBST"
+
+JsonObject Services_0_NextBus = Services_0["NextBus"];
+const char* Services_0_NextBus_OriginCode = Services_0_NextBus["OriginCode"]; // "59009"
+const char* Services_0_NextBus_DestinationCode = Services_0_NextBus["DestinationCode"]; // "59009"
+const char* Services_0_NextBus_EstimatedArrival = Services_0_NextBus["EstimatedArrival"]; // "2020-07-12T21:29:03+08:00"
+const char* Services_0_NextBus_Latitude = Services_0_NextBus["Latitude"]; // "1.4175388333333334"
+const char* Services_0_NextBus_Longitude = Services_0_NextBus["Longitude"]; // "103.84205933333334"
+const char* Services_0_NextBus_VisitNumber = Services_0_NextBus["VisitNumber"]; // "1"
+const char* Services_0_NextBus_Load = Services_0_NextBus["Load"]; // "SEA"
+const char* Services_0_NextBus_Feature = Services_0_NextBus["Feature"]; // "WAB"
+const char* Services_0_NextBus_Type = Services_0_NextBus["Type"]; // "SD"
+
+JsonObject Services_0_NextBus2 = Services_0["NextBus2"];
+const char* Services_0_NextBus2_OriginCode = Services_0_NextBus2["OriginCode"]; // "59009"
+const char* Services_0_NextBus2_DestinationCode = Services_0_NextBus2["DestinationCode"]; // "59009"
+const char* Services_0_NextBus2_EstimatedArrival = Services_0_NextBus2["EstimatedArrival"]; // "2020-07-12T21:41:09+08:00"
+const char* Services_0_NextBus2_Latitude = Services_0_NextBus2["Latitude"]; // "1.4237435"
+const char* Services_0_NextBus2_Longitude = Services_0_NextBus2["Longitude"]; // "103.838866"
+const char* Services_0_NextBus2_VisitNumber = Services_0_NextBus2["VisitNumber"]; // "1"
+const char* Services_0_NextBus2_Load = Services_0_NextBus2["Load"]; // "SDA"
+const char* Services_0_NextBus2_Feature = Services_0_NextBus2["Feature"]; // "WAB"
+const char* Services_0_NextBus2_Type = Services_0_NextBus2["Type"]; // "SD"
+
+JsonObject Services_0_NextBus3 = Services_0["NextBus3"];
+const char* Services_0_NextBus3_OriginCode = Services_0_NextBus3["OriginCode"]; // "59009"
+const char* Services_0_NextBus3_DestinationCode = Services_0_NextBus3["DestinationCode"]; // "59009"
+const char* Services_0_NextBus3_EstimatedArrival = Services_0_NextBus3["EstimatedArrival"]; // "2020-07-12T21:47:57+08:00"
+const char* Services_0_NextBus3_Latitude = Services_0_NextBus3["Latitude"]; // "0"
+const char* Services_0_NextBus3_Longitude = Services_0_NextBus3["Longitude"]; // "0"
+const char* Services_0_NextBus3_VisitNumber = Services_0_NextBus3["VisitNumber"]; // "1"
+const char* Services_0_NextBus3_Load = Services_0_NextBus3["Load"]; // "SEA"
+const char* Services_0_NextBus3_Feature = Services_0_NextBus3["Feature"]; // "WAB"
+const char* Services_0_NextBus3_Type = Services_0_NextBus3["Type"]; // "SD"
+
+JsonObject Services_1 = doc["Services"][1];
+const char* Services_1_ServiceNo = Services_1["ServiceNo"]; // "812"
+const char* Services_1_Operator = Services_1["Operator"]; // "SBST"
+
+JsonObject Services_1_NextBus = Services_1["NextBus"];
+const char* Services_1_NextBus_OriginCode = Services_1_NextBus["OriginCode"]; // "59009"
+const char* Services_1_NextBus_DestinationCode = Services_1_NextBus["DestinationCode"]; // "59009"
+const char* Services_1_NextBus_EstimatedArrival = Services_1_NextBus["EstimatedArrival"]; // "2020-07-12T21:27:34+08:00"
+const char* Services_1_NextBus_Latitude = Services_1_NextBus["Latitude"]; // "1.4189981666666667"
+const char* Services_1_NextBus_Longitude = Services_1_NextBus["Longitude"]; // "103.8407995"
+const char* Services_1_NextBus_VisitNumber = Services_1_NextBus["VisitNumber"]; // "1"
+const char* Services_1_NextBus_Load = Services_1_NextBus["Load"]; // "SEA"
+const char* Services_1_NextBus_Feature = Services_1_NextBus["Feature"]; // "WAB"
+const char* Services_1_NextBus_Type = Services_1_NextBus["Type"]; // "DD"
+
+JsonObject Services_1_NextBus2 = Services_1["NextBus2"];
+const char* Services_1_NextBus2_OriginCode = Services_1_NextBus2["OriginCode"]; // "59009"
+const char* Services_1_NextBus2_DestinationCode = Services_1_NextBus2["DestinationCode"]; // "59009"
+const char* Services_1_NextBus2_EstimatedArrival = Services_1_NextBus2["EstimatedArrival"]; // "2020-07-12T21:43:12+08:00"
+const char* Services_1_NextBus2_Latitude = Services_1_NextBus2["Latitude"]; // "1.4267835"
+const char* Services_1_NextBus2_Longitude = Services_1_NextBus2["Longitude"]; // "103.83602183333333"
+const char* Services_1_NextBus2_VisitNumber = Services_1_NextBus2["VisitNumber"]; // "1"
+const char* Services_1_NextBus2_Load = Services_1_NextBus2["Load"]; // "SEA"
+const char* Services_1_NextBus2_Feature = Services_1_NextBus2["Feature"]; // "WAB"
+const char* Services_1_NextBus2_Type = Services_1_NextBus2["Type"]; // "SD"
+
+JsonObject Services_1_NextBus3 = Services_1["NextBus3"];
+const char* Services_1_NextBus3_OriginCode = Services_1_NextBus3["OriginCode"]; // "59009"
+const char* Services_1_NextBus3_DestinationCode = Services_1_NextBus3["DestinationCode"]; // "59009"
+const char* Services_1_NextBus3_EstimatedArrival = Services_1_NextBus3["EstimatedArrival"]; // "2020-07-12T21:53:41+08:00"
+const char* Services_1_NextBus3_Latitude = Services_1_NextBus3["Latitude"]; // "0"
+const char* Services_1_NextBus3_Longitude = Services_1_NextBus3["Longitude"]; // "0"
+const char* Services_1_NextBus3_VisitNumber = Services_1_NextBus3["VisitNumber"]; // "1"
+const char* Services_1_NextBus3_Load = Services_1_NextBus3["Load"]; // "SEA"
+const char* Services_1_NextBus3_Feature = Services_1_NextBus3["Feature"]; // "WAB"
+const char* Services_1_NextBus3_Type = Services_1_NextBus3["Type"]; // "DD"
