@@ -8,8 +8,6 @@
 
 #include <ArduinoJson.h>
 
-#include <Ticker.h>
-
 
 #ifndef CHARBUFF
 #include "char_buff.h"
@@ -36,15 +34,14 @@ ESP8266WiFiMulti WiFiMulti;
 
 int timezone = 8;
 int dst = 0;
-
-Ticker blinker;
  
 #define LED 13
  
 //=======================================================================
-void changeState()
+void ICACHE_RAM_ATTR onTimerISR()
 {
-  digitalWrite(LED, !(digitalRead(LED)));  //Invert Current State of LED  
+  digitalWrite(LED, !(digitalRead(LED)));  //Invert Current State of LED
+  //timer1_write(500000); //12us - only needed if use TIM_SINGLE instead of TIM_LOOP
 }
 //=======================================================================
 
@@ -72,7 +69,18 @@ void setup() {
   digitalWrite(LED, LOW);
 
   //Initialize Ticker every 0.5s
-  blinker.attach_ms(2, changeState); //Use <strong>attach_ms</strong> if you need time in ms
+  timer1_attachInterrupt(onTimerISR); // Add ISR Function
+  timer1_enable(TIM_DIV16, TIM_EDGE, TIM_LOOP);
+  /* Dividers:
+    TIM_DIV1 = 0,   //80MHz (80 ticks/us - 104857.588 us max)
+    TIM_DIV16 = 1,  //5MHz (5 ticks/us - 1677721.4 us max)
+    TIM_DIV256 = 3  //312.5Khz (1 tick = 3.2us - 26843542.4 us max)
+  Reloads:
+    TIM_SINGLE  0 //on interrupt routine you need to write a new value to start the timer again
+    TIM_LOOP  1 //on interrupt the counter will start with the same value again
+  */
+  // Arm the Timer for our 2ms Interval
+  timer1_write(10000);
 
   // Empty the buffer
   char_buff_empty();
@@ -95,10 +103,8 @@ void loop() {
     }
 
     time1 = millis();
-    blinker.detach(); 
     GetBusData();
     time2 = millis();
-    blinker.attach_ms(2, changeState); //Use <strong>attach_ms</strong> if you need time in ms
   }
 
   Serial.println(time1 - last_time);
